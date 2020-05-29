@@ -1,2 +1,4 @@
+{ "notes":
 [{"title":"Test Title","text":"Test text", "id": "test_id"},
  {"title":"Arrange meeting", "text":"Determine number of meetings", "id":"meeting_id"}]
+}
