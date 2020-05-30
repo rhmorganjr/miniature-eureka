@@ -6,9 +6,10 @@ var $noteList = $(".list-container .list-group");
 
 // activeNote is used to keep track of the note in the textarea
 var activeNote = {};
-
+console.log("index.js");
 // A function for getting all notes from the db
 var getNotes = function() {
+  console.log("getNotes");
   return $.ajax({
     url: "/api/notes",
     method: "GET"
@@ -17,6 +18,7 @@ var getNotes = function() {
 
 // A function for saving a note to the db
 var saveNote = function(note) {
+  console.log("saveNote = "+note);
   return $.ajax({
     url: "/api/notes",
     data: note,
@@ -49,13 +51,30 @@ var renderActiveNote = function() {
   }
 };
 
+// generate a random id for a new note
+function generateId() {
+  console.log("generateId");
+  const len = 10;
+  const baseStr = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+  let id = "";
+  for (let i = 0; i < len; i++) {
+    // get random number for index into baseStr
+    let index = Math.floor(Math.random(baseStr.length) * baseStr.length);
+    id += baseStr.charAt(index);
+  }
+  console.log("id = "+id);
+  return id;
+}
+
 // Get the note data from the inputs, save it to the db and update the view
 var handleNoteSave = function() {
+  console.log("handleNoteSave");
   var newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val()
+    text: $noteText.val(),
+    id: generateId()
   };
-
+  console.log("newNote = "+newNote);
   saveNote(newNote).then(function(data) {
     getAndRenderNotes();
     renderActiveNote();
@@ -127,7 +146,6 @@ var renderNoteList = function(notes) {
 
 // Gets notes from the db and renders them to the sidebar
 var getAndRenderNotes = function() {
-  console.log("getAndRenderNotes");
   return getNotes().then(function(data) {
     renderNoteList(data);
   });

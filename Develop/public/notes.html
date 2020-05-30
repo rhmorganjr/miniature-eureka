@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-  <!--link rel="stylesheet" href="./assets/css/styles.css" -->
   <style>
     html, body {
       height: 100%;
@@ -81,6 +80,7 @@
       padding: 20px;
       cursor: pointer;
     }
+
   </style>
 </head>
 
@@ -108,6 +108,7 @@
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--srcipt src="./assets/js/index.js"></srcipt -->
   <script>
     var $noteTitle = $(".note-title");
     var $noteText = $(".note-textarea");
@@ -117,7 +118,6 @@
 
     // activeNote is used to keep track of the note in the textarea
     var activeNote = {};
-
     // A function for getting all notes from the db
     var getNotes = function() {
       return $.ajax({
@@ -137,6 +137,7 @@
 
     // BONUS A function for deleting a note from the db
     var deleteNote = function(id) {
+      console.log("del id= "+id);
       return $.ajax({
         url: "api/notes/" + id,
         method: "DELETE"
@@ -160,13 +161,26 @@
       }
     };
 
+    // generate a random id for a new note
+    function generateId() {
+      const len = 10;
+      const baseStr = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
+      let id = "";
+      for (let i = 0; i < len; i++) {
+        // get random number for index into baseStr
+        let index = Math.floor(Math.random(baseStr.length) * baseStr.length);
+        id += baseStr.charAt(index);
+      }
+      return id;
+    }
+
     // Get the note data from the inputs, save it to the db and update the view
     var handleNoteSave = function() {
       var newNote = {
         title: $noteTitle.val(),
-        text: $noteText.val()
+        text: $noteText.val(),
+        id: generateId()
       };
-
       saveNote(newNote).then(function(data) {
         getAndRenderNotes();
         renderActiveNote();

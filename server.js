@@ -26,6 +26,7 @@ app.get('/api/notes', (req, res) => {
 });
 
 app.get('/api/notes/:id', (req, res) => {
+  console.log("get note to del; "+req.params.id);
   const result = findById(req.params.id, notes);
   if (result) {
     res.json(result);
@@ -38,10 +39,12 @@ app.post('/api/notes', (req, res) => {
   const newNote = req.body;
 
   console.log(newNote);
-
   notes.push(newNote);
-
   res.json(newNote);
+});
+
+app.delete('/api/notes/:id', (req, res) => {
+  const note = req.body;
 });
 
 app.listen(PORT, () => {
