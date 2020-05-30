@@ -17,8 +17,8 @@ No tests were required for this challenge.
 
 
 ## GitHub Link
-
+https://github.com/rhmorganjr/miniature-eureka
 
 
 # GitHub Page
-
+https://rhmorganjr.github.io/miniature-eureka/
