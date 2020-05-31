@@ -25,4 +25,4 @@ https://rhmorganjr.github.io/miniature-eureka/
 
 
 ## Heroku
-http://git.heroku.com/rhmorganjr-notetaker.git
+https://rhmorganjr-notetaker.herokuapp.com
